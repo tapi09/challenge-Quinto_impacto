@@ -16,8 +16,11 @@ public class Security {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(
                 auth -> auth
-                        .requestMatchers("/css/*","/js/*","/img/*","/**").permitAll()
+                        .requestMatchers("/css/*","/js/*","/img/*","/h2-console/**","/**").permitAll()
         );
+        http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
+
         return http.build();
     }
 
