@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="/style/reset.css"/>
+    <link rel="stylesheet" href="/style/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <!-- fuente del texto de google fonts nombre "montserrat"-->
+</head>
+<body>
+<header>
+    <div class="caja">
+        <h1><img class="logo" src="/img/logo.png" alt="logo Universidad"/></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a th:href="@{/alumno/listartodos}">Alumnos</a></li>
+                <li><a th:href="@{/}">Profesores</a></li>
+                <li><a th:href="@{/}">Cursos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<img class="banner" src=""/>
+
+<main>
+
+    <section class="tabla-alumnmos">
+        <table>
+            <thead>
+            <tr>
+                <th> Nombre</th>
+                <th> Profesor</th>
+                <th> Turno</th>
+                <th> Horario</th>
+                <th> Alumnos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="alumno : ${alumnos}">
+                <td th:text="${alumno.nombre}">asd</td>
+                <td th:text="${alumno.edad}"></td>
+                <td th:text="${alumno.nacimiento}"></td>
+                <td th:text="${alumno.historia}"></td>
+                <td>
+                    <form th:action="@{/alumno/listartodos}" method="get">
+                        <input type="hidden" th:value="${alumno.id}" name="id">
+                        <button type="submit" class="btn btn-danger">Modificar <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/alumno/eliminar/} + ${alumno.id}" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="contenedor-boton">
+            <form class="form-alumno" th:action="@{/alumno/crear}" method="post">
+                <p th:if="${error != null}" th:placeholder="${error}"></p>
+                <div th:if="${alumno == null}">
+                    <h2>Agregar Alumno</h2>
+                    <input type="text" placeholder="Nombre" name="nombre" >
+                    <input type="number" placeholder="Edad" name="edad" >
+                    <input type="date" placeholder="Nacimiento" name="nacimiento">
+                    <textarea type="text" placeholder="Historia" name="historia" ></textarea>
+
+                </div>
+                <div th:unless="${alumno == null}">
+                    <h2>Modificar Alumno</h2>
+                    <input type="hidden" name="id" th:value="${alumno.id}">
+                <input type="text" placeholder="Nombre" name="nombre" th:if="${alumno != null}" th:value="${alumno.nombre}" >
+                <input type="number" placeholder="Edad" name="edad" th:if="${alumno != null}" th:value="${alumno.edad}">
+                <input type="date" placeholder="Nacimiento" name="nacimiento" th:if="${alumno != null}" th:value="${alumno.nacimiento}">
+                <textarea type="text" placeholder="Historia" name="historia" th:if="${alumno != null}" th:field="${alumno.historia}"></textarea>
+                </div>
+            <button class="btn-agregar" type="submit">Guardar</button>
+            </form>
+        </div>
+        <br>
+        <div class="buscar">
+            <form class="buscar" th:action="@{/alumno/buscar}" method="get">
+                <input placeholder="Nombre" type="text" name="cadena">
+                <button type="submit">Buscar</button>
+
+
+            </form>
+
+
+        </div>
+    </section>
+
+</main>
+<footer>
+    <p class="copyright">&copy Copyright David Sanchez 2023</p>
+</footer>
+</body>
+</html>

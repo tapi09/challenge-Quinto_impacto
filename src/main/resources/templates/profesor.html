@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="/style/reset.css"/>
+    <link rel="stylesheet" href="/style/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <!-- fuente del texto de google fonts nombre "montserrat"-->
+</head>
+<body>
+<header>
+    <div class="caja">
+        <h1><img class="logo" src="/img/logo.png" alt="logo Universidad"/></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a th:href="@{/alumno/listartodos}">Alumnos</a></li>
+                <li><a th:href="@{/profesor/listar}">Profesores</a></li>
+                <li><a th:href="@{/curso/listar}">Cursos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<img class="banner" src=""/>
+
+<main>
+
+    <section class="tabla-alumnmos">
+        <table>
+            <thead>
+            <tr>
+                <th> Nombre </th>
+                <th> Apellido </th>
+                <th> Cursos </th>
+                <th> Acciones </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="profesor : ${profesores}">
+                <td th:text="${profesor.nombre}">asd</td>
+                <td th:text="${profesor.apellido}"></td>
+                <td th:if="${#lists.isEmpty(profesor.cursos)}" th:text="Sin-Cursos"></td>
+                <td th:each="curso :${profesor.cursos}" th:text="${!#lists.isEmpty(curso)} ?  ${curso.nombre}"></td>
+                <td>
+                    <form th:action="@{/profesor/listar}" method="get">
+                        <input type="hidden" th:value="${profesor.id}" name="id">
+                        <button type="submit" class="btn btn-danger">Modificar <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/profesor/eliminar/} + ${profesor.id}" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="contenedor-boton">
+            <form class="form-alumno" th:action="@{/profesor/guardar}" method="post">
+                <p th:if="${error != null}" th:placeholder="${error}" style="color: red"></p>
+                <div th:if="${profesor == null}">
+                    <h2>Agregar Profesor</h2>
+                    <input type="text" placeholder="Nombre" name="nombre" >
+                    <input type="text" placeholder="Apellido" name="apellido" >
+                    <select name="listId" multiple>
+                        <option th:each="curso :${cursos}" th:value="${curso.id}" th:utext="${curso.nombre}"></option>
+                    </select>
+
+                </div>
+                <div th:unless="${profesor == null}">
+                    <h2>Modificar Profesor</h2>
+                    <input type="hidden" name="id" th:value="${profesor.id}">
+                    <input type="text" placeholder="Nombre" name="nombre" th:if="${profesor != null}" th:value="${profesor.nombre}" >
+                    <input type="text" placeholder="Apellido" name="apellido" th:if="${profesor != null}" th:value="${profesor.apellido}">
+                    <select name="listId" multiple>
+                        <option th:each="curso :${cursos}" th:value="${curso.id}" th:text="${curso.nombre}"></option>
+                    </select>
+                </div>
+            <button class="btn-agregar" type="submit">Guardar</button>
+            </form>
+        </div>
+    </section>
+
+</main>
+<footer>
+    <p class="copyright">&copy Copyright David Sanchez 2023</p>
+</footer>
+</body>
+</html>

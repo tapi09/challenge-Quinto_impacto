@@ -1,7 +1,6 @@
-package com.challenge.universidad.dao;
+package com.challenge.universidad.repository;
 
-import com.challenge.universidad.entities.Alumno;
-import com.challenge.universidad.entities.Curso;
+import com.challenge.universidad.model.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

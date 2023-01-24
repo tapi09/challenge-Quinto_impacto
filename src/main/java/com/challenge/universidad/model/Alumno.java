@@ -1,9 +1,11 @@
-package com.challenge.universidad.entities;
+package com.challenge.universidad.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +17,14 @@ public class Alumno {
     @Column(name = "alumno_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "alumno_nombre")
     private String nombre;
+    @Column(name = "alumno_edad")
     private Integer edad;
+    @Column(name = "alumno_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date nacimiento;
+    @Column(name = "alumno_historia")
     private String historia;
 
     @ManyToMany(cascade = {
@@ -27,10 +32,12 @@ public class Alumno {
             CascadeType.MERGE
     })
     @JoinTable(
-            name = "alumno_curso",
+            name = "alumnos_curso",
             joinColumns = {@JoinColumn(name = "alumno_id")},
             inverseJoinColumns = {@JoinColumn(name = "curso_id")}
     )
-    private List<Curso> cursos;
+    @ToString.Exclude
+    private List<Curso> cursos = new ArrayList<>();
+
 
 }

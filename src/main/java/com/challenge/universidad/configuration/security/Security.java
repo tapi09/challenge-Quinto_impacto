@@ -1,4 +1,4 @@
-package com.challenge.universidad.security;
+package com.challenge.universidad.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class Security {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(
                 auth -> auth
-                        .requestMatchers("/css/*","/js/*","/img/*","/h2-console/**","/**").permitAll()
+                        .requestMatchers("/css/*","/js/*","/img/*","/png/*","/jpg/*","/h2-console/**","/**").permitAll()
         );
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Universidad</title>
+    <link rel="stylesheet" href="/style/reset.css"/>
+    <link rel="stylesheet" href="/style/style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <!-- fuente del texto de google fonts nombre "montserrat"-->
+</head>
+<body>
+<header>
+    <div class="caja">
+        <h1><img class="logo" src="/img/logo.png" alt="logo Universidad"/></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a th:href="@{/alumno/listartodos}" th:method="get">Alumnos</a></li>
+                <li><a th:href="@{/profesor/listar}">Profesores</a></li>
+                <li><a th:href="@{/curso/listar}">Cursos</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<img class="banner" src=""/>
+
+<main>
+</main>
+<footer>
+    <p class="copyright">&copy Copyright David Sanchez 2023</p>
+</footer>
+</body>
+</html>

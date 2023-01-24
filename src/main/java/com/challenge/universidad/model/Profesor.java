@@ -1,4 +1,4 @@
-package com.challenge.universidad.entities;
+package com.challenge.universidad.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,9 +15,14 @@ public class Profesor {
     @Column(name = "profesor_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "profesor_nombre")
     private String nombre;
+    @Column(name = "profesor_apellido")
     private String apellido;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "cursos")
+    @OneToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, targetEntity = Curso.class)
     private List<Curso> cursos;
 }
